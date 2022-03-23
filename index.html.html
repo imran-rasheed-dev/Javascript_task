@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .css {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .css>div>div {
+            height: 100%;
+        }
+        
+        .css div a {
+            color: red;
+            font-size: 18px;
+            display: block;
+        }
+        
+        section {
+            background-color: #e9ecef;
+            padding: 100px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="container">
+                        <div class="row shadow py-4">
+                            <div class="col-12">
+                                <h1 class="text-center mb-4">Look the magic of javascript</h1>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="textInput" class="text-capitalize mb-2">Write Some text Here</label>
+                                <input type="text" class="form-control" id="textInput">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="textColor" class="text-capitalize mb-2">chose Text Color</label>
+                                <input type="color" class="form-control form-control-color" id="textColor">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="textColor" class="text-capitalize mb-2">chose text background color</label>
+                                <input type="color" class="form-control form-control-color" id="bgColor">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <a href="javascript:;" class="btn btn-primary p-3 text-uppercase" onclick="getValueAndAppend()">Click here</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div id="div" class="css row row-cols-md-4 row-cols-sm-2 row-cols-1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 
+        1) get value of input
+        2) click here button on click  show value of input in paragrap text
+        3) make condition if input in empty show the error
+        4) make condition if text color and background color same show error
+    -->
+    <script>
+        function getValueAndAppend() {
+            const inputValue = document.getElementById("textInput").value;
+            const textColorValue = document.getElementById("textColor").value;
+            const bgColorValue = document.getElementById("bgColor").value;
+            const div = document.getElementById('div');
+
+            // create remove button
+            const deleteBtn = document.createElement('a');
+            deleteBtn.setAttribute('href', "javascript:;");
+            deleteBtn.setAttribute('class', "btn btn-primary text-white");
+            deleteBtn.setAttribute('onclick', "this.parentElement.parentElement.remove();");
+            const deleteBtnContent = document.createTextNode("Remove");
+            deleteBtn.appendChild(deleteBtnContent);
+
+
+
+            // create new div
+            const newDiv = document.createElement('div');
+            const newContent = document.createTextNode(inputValue);
+            const pTag = document.createElement("p");
+            const pTagContent = document.createTextNode(inputValue);
+            pTag.appendChild(pTagContent);
+            // creat div class col
+            const colDiv = document.createElement('div');
+            colDiv.setAttribute('class', "col");
+
+            // div set color and background color with input value
+            pTag.style.color = textColorValue;
+            newDiv.style.backgroundColor = bgColorValue;
+
+            // then show the new div when click a submit button
+            // condition input is should not empty and background-color and text color should not same
+            if (inputValue === "") {
+                alert("write something in input field")
+            }
+            if (bgColorValue === textColorValue) {
+                alert("chose defferent colors please")
+            } else {
+                div.appendChild(colDiv);
+                colDiv.appendChild(newDiv);
+                newDiv.appendChild(pTag);
+                newDiv.appendChild(deleteBtn);
+            }
+        }
+    </script>
+</body>
+
+</html>
